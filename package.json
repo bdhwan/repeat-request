@@ -1,0 +1,30 @@
+{
+  "name": "repeat-request",
+  "version": "0.0.1",
+  "description": "A cron-like HTTP request scheduler",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
+  "dependencies": {
+    "cron": "^2.4.3"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coverageDirectory": "coverage",
+    "collectCoverageFrom": [
+      "*.js",
+      "!*.test.js",
+      "!jest.config.js"
+    ]
+  }
+}

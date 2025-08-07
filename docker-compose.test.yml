@@ -1,0 +1,24 @@
+version: "3.8"
+services:
+  repeat-request:
+    build: .
+    environment:
+      CRON_SCHEDULE: |
+        5s, GET, http://httpbin:80/get
+        10s, POST, http://httpbin:80/post
+        */1 * * * *, GET, http://httpbin:80/status/200
+    depends_on:
+      - httpbin
+    networks:
+      - test-network
+
+  httpbin:
+    image: kennethreitz/httpbin
+    ports:
+      - "8080:80"
+    networks:
+      - test-network
+
+networks:
+  test-network:
+    driver: bridge
