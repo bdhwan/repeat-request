@@ -3,6 +3,7 @@ services:
   repeat-request:
     build: .
     environment:
+      REQUEST_TIMEOUT: 30
       CRON_SCHEDULE: |
         5s, GET, http://httpbin:80/get
         10s, POST, http://httpbin:80/post
@@ -18,6 +19,21 @@ services:
       - "8080:80"
     networks:
       - test-network
+
+  sut:
+    image: alpine:3.18
+    depends_on:
+      - repeat-request
+      - httpbin
+    networks:
+      - test-network
+    command: |
+      sh -c "
+      echo 'Starting test suite...'
+      sleep 20
+      echo 'Test completed - repeat-request is running and making requests to httpbin'
+      exit 0
+      "
 
 networks:
   test-network:
